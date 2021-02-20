@@ -1,31 +1,35 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest'
+import { AppComponent } from './app.component'
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [AppComponent],
-    }).compileComponents();
-  });
+	let spectator: Spectator<AppComponent>
+	let app: AppComponent
+	let element: HTMLElement
+	let $: Spectator<AppComponent>['query']
+	let $$: Spectator<AppComponent>['queryAll']
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+	const createComponent = createComponentFactory({
+		component: AppComponent,
+	})
 
-  it(`should have as title 'demo'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('demo');
-  });
+	beforeEach(async () => {
+		spectator = createComponent()
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain(
-      'Welcome to demo!'
-    );
-  });
-});
+		app = spectator.component
+		element = spectator.element
+		$ = spectator.query.bind(spectator)
+		$$ = spectator.queryAll.bind(spectator)
+	})
+
+	it('should create the app', () => {
+		expect(app).toExist()
+	})
+
+	it(`should have as title 'demo'`, () => {
+		expect(app.title).toEqual('demo')
+	})
+
+	it('should render title', () => {
+		expect($('h1')).toHaveText('Welcome to demo!')
+	})
+})
