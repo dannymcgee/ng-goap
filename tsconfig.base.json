@@ -15,7 +15,8 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@goap/types": ["libs/types/src/index.ts"]
+			"@goap/types": ["libs/types/src/index.ts"],
+			"@goap/planner": ["libs/planner/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

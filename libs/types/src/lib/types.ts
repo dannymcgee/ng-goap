@@ -1,21 +1,33 @@
+import { InjectionToken } from '@angular/core'
 import { Observable } from 'rxjs'
 
-export interface State {
+export interface IState {
 	[key: string]: any
 }
 
-export interface Action {
+export interface IAction {
+	name: string
 	cost: number
-	isValid(state: State): boolean
-	simulate(state: State): State
+	isValidFor(state: IState): boolean
+	simulate(state: IState): IState
+	toGoal(): IGoal
 }
 
-export interface Goal extends State {
-	estimate(given: State, action: Action): number
+export interface IGoal {
+	name: string
+	estimateValue(state: IState, action: IAction): number
+	isSatisfiedBy(state: IState): boolean
 }
 
-export interface Planner {
-	goal: Goal
-	actions: Action[]
-	run(): Observable<Action[]>
+export interface IPlanner {
+	initialize(agent: IAgent): IPlanner
+	run(goal: Readonly<IGoal>): Observable<IAction[] | null>
 }
+
+export interface IAgent {
+	readonly state: Readonly<IState>
+	// goal: Readonly<IGoal>
+	readonly actions: readonly IAction[]
+}
+
+// export const AGENT = new InjectionToken<IAgent>('IAgent DI token')

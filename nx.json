@@ -21,6 +21,7 @@
 	"projects": {
 		"demo": { "tags": [] },
 		"demo-e2e": { "tags": [], "implicitDependencies": ["demo"] },
-		"types": { "tags": [] }
+		"types": { "tags": [] },
+		"planner": { "tags": [] }
 	}
 }
