@@ -115,6 +115,31 @@
 					}
 				}
 			}
+		},
+		"types": {
+			"projectType": "library",
+			"root": "libs/types",
+			"sourceRoot": "libs/types/src",
+			"prefix": "goap",
+			"architect": {
+				"lint": {
+					"builder": "@nrwl/linter:eslint",
+					"options": {
+						"lintFilePatterns": [
+							"libs/types/src/**/*.ts",
+							"libs/types/src/**/*.html"
+						]
+					}
+				},
+				"test": {
+					"builder": "@nrwl/jest:jest",
+					"outputs": ["coverage/libs/types"],
+					"options": {
+						"jestConfig": "libs/types/jest.config.js",
+						"passWithNoTests": true
+					}
+				}
+			}
 		}
 	}
 }
